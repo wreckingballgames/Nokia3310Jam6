@@ -115,3 +115,7 @@ They can do everything normal cells can (or else they wouldn't be very good impo
 ## Scenes
 
 - Manage the transition between different scenes (for example, between main menu, stages, and game over scenes)
+
+## Menus
+
+- Handle the main menu and any other menus for the game
