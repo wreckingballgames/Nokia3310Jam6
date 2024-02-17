@@ -106,7 +106,7 @@ def hello_world args
   args.nokia.labels  << {
     x: 42,
     y: 46,
-    text: "nokia 3310 jam 3",
+    text: "nokia 3310 jam 6",
     size_enum: NOKIA_FONT_SM,
     alignment_enum: 1,
     r: 0,
