@@ -106,3 +106,12 @@ They can do everything normal cells can (or else they wouldn't be very good impo
 
 - Some states of the stage affect game difficulty (see generation) including a difficulty factor used for some calculations which is incremented every time a stage is completed
 - Every new stage is harder than the previous one
+
+## UI
+
+- Receive information about the game and draw it to a HUD on the screen
+- Facilitate sending information back from inputs (buttons)
+
+## Scenes
+
+- Manage the transition between different scenes (for example, between main menu, stages, and game over scenes)
