@@ -1,4 +1,6 @@
 require 'app/nokia.rb'
+require 'app/lib/directions.rb'
+require 'app/lib/player.rb'
 
 def tick args
   # =======================================================================

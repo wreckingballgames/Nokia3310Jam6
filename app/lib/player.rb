@@ -1,6 +1,8 @@
 class Player
   attr_gtk
 
+  include Directions
+
   @x = 0
   @y = 0
   @w = 8
