@@ -108,7 +108,6 @@ class Player
       @cursor_x = @x + @w
       @cursor_y = @y
     end
-    # Draw cursor in front of player
   end
 
   def attack
