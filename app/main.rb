@@ -3,6 +3,12 @@ require 'app/lib/directions.rb'
 require 'app/lib/player.rb'
 
 def tick args
+  args.state.player ||= Player.new
+
+  args.state.player.handle_movement args
+  args.state.player.check_bounds args
+  args.state.player.draw args
+
   # =======================================================================
   # ==== HELLO WORLD ======================================================
   # =======================================================================
