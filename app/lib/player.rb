@@ -8,10 +8,18 @@ class Player
   @w
   @h
   @path
+  @facing
   @speed # Pixels per second
   @tries
   @base_freeze_cooldown # In seconds
   @elapsed_freeze_cooldown # In seconds
+
+  # Cursor Information
+  @cursor_x
+  @cursor_y
+  @cursor_w
+  @cursor_h
+  @cursor_path
 
   # TODO:
   # Define a field for which player
@@ -34,33 +42,41 @@ class Player
     @w = 6
     @h = 6
     @path = "sprites/monochrome-ship.png"
+    @facing = Directions::RIGHT
     @speed = 6
     @tries = 3
     @base_freeze_cooldown = 6.0
     @elapsed_freeze_cooldown = 0.0
+
+    # Cursor setup
+    @cursor_x = @x + @w
+    @cursor_y = 0
+    @cursor_w = @w
+    @cursor_h = @h
+    @cursor_path = "sprites/square/black.png"
   end
 
   def handle_movement args
     # Called every tick
-    direction = Directions::NEUTRAL
+    @facing = Directions::NEUTRAL
     # Check movement inputs
     if args.inputs.keyboard.key_down.up || args.inputs.controller_one.key_down.up
-      direction = Directions::UP
+      @facing = Directions::UP
     elsif args.inputs.keyboard.key_down.down || args.inputs.controller_one.key_down.down
-      direction = Directions::DOWN
+      @facing = Directions::DOWN
     elsif args.inputs.keyboard.key_down.left || args.inputs.controller_one.key_down.left
-      direction = Directions::LEFT
+      @facing = Directions::LEFT
     elsif args.inputs.keyboard.key_down.right || args.inputs.controller_one.key_down.right
-      direction = Directions::RIGHT
+      @facing = Directions::RIGHT
     end
     # Apply movement
-    if direction == Directions::UP
+    if @facing == Directions::UP
       @y += @speed
-    elsif direction == Directions::DOWN
+    elsif @facing == Directions::DOWN
       @y -= @speed
-    elsif direction == Directions::LEFT
+    elsif @facing == Directions::LEFT
       @x -= @speed
-    elsif direction == Directions::RIGHT
+    elsif @facing == Directions::RIGHT
       @x += @speed
     end
   end
@@ -77,6 +93,24 @@ class Player
     end
   end
 
+  def update_cursor
+    # Check player facing
+    if @facing == Directions::UP
+      @cursor_x = @x
+      @cursor_y = @y + @h
+    elsif @facing == Directions::DOWN
+      @cursor_x = @x
+      @cursor_y = @y - @h
+    elsif @facing == Directions::LEFT
+      @cursor_x = @x - @w
+      @cursor_y = @y
+    elsif @facing == Directions::RIGHT
+      @cursor_x = @x + @w
+      @cursor_y = @y
+    end
+    # Draw cursor in front of player
+  end
+
   def attack
     # If freeze cooldown is active,
     #   does nothing or gives feedback
@@ -87,6 +121,11 @@ class Player
     #   cell there, the cell is frozen
   end
 
+  def draw_tick args
+    draw args
+    draw_cursor args
+  end
+
   def draw args
     # Handle player sprite facing
     #   Flip horizontally based on
@@ -95,6 +134,10 @@ class Player
     #   position each tick
 
     args.nokia.sprites << {x: @x, y: @y, w: @w, h: @h, path: @path}
+  end
+
+  def draw_cursor args
+    args.nokia.sprites << {x: @cursor_x, y: @cursor_y, w: @cursor_w, h: @cursor_h, path: @cursor_path}
   end
 
   def collision?

@@ -6,8 +6,9 @@ def tick args
   args.state.player ||= Player.new
 
   args.state.player.handle_movement args
+  args.state.player.update_cursor
   args.state.player.check_bounds args
-  args.state.player.draw args
+  args.state.player.draw_tick args
 
   # =======================================================================
   # ==== HELLO WORLD ======================================================
